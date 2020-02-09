@@ -154,6 +154,7 @@ add_executable(${PROJECT_NAME}.main.bin
 target_link_libraries(${PROJECT_NAME}.main.bin
     PUBLIC
         ${PROJECT_NAME}.main
+        LOG4CXX::LOG4CXX
 )
 
 #EXPORT LIBRARY INTERFACE

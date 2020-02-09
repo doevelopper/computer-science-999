@@ -1,4 +1,5 @@
 
+
 #ifndef COMPUTER_SCIENCE_TEST_HPP
 #define COMPUTER_SCIENCE_TEST_HPP
 
@@ -21,15 +22,16 @@ namespace computer::science::test
 
         private:
 
-            std::string m_testSuites;
-            unsigned int m_numberOfTestIteration;
-            static const  unsigned long LOGGER_WATCH_DELAY;
+            std::string                m_testSuites;
+            unsigned int               m_numberOfTestIteration;
+            static const unsigned long LOGGER_WATCH_DELAY;
             //::Logger * m_loggerService;
             /*!
              * @brief Class logger.
              */
             //static log4cxx::LoggerPtr logger;
-        };
+    };
 }
 
 #endif
+

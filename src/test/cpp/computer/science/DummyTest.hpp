@@ -1,3 +1,5 @@
+
+
 #ifndef COMPUTER_SCIENCE_DUMMYTEST_HPP
 #define COMPUTER_SCIENCE_DUMMYTEST_HPP
 
@@ -9,28 +11,29 @@
 
 namespace computer::science::test
 {
-class DummyTest : public ::testing::Test
-{
+    class DummyTest : public ::testing::Test
+    {
+        public:
 
-    public:
-	DummyTest();
-        DummyTest(const DummyTest&) = default;
-        DummyTest(DummyTest&&) = default;
-        DummyTest& operator=(const DummyTest&) = default;
-        DummyTest& operator=(DummyTest&&) = default;
-        virtual ~DummyTest();
+            DummyTest();
+            DummyTest(const DummyTest&) = default;
+            DummyTest(DummyTest&&) = default;
+            DummyTest& operator=(const DummyTest&) = default;
+            DummyTest& operator=(DummyTest&&) = default;
+            virtual ~DummyTest();
 
-        virtual void SetUp ();
-        virtual void TearDown ();
+            virtual void SetUp ();
+            virtual void TearDown ();
 
-    protected:
+        protected:
 
-	cpp101::Dummy * dummy;
-	static log4cxx::LoggerPtr logger;
+            cpp101::Dummy *           dummy;
+            static log4cxx::LoggerPtr logger;
 
-    private:
-        //boost::shared_ptr<Dummy> dummy;
-};
+        private:
+
+            //boost::shared_ptr<Dummy> dummy;
+    };
 }
 #endif
 

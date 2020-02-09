@@ -1,0 +1,28 @@
+
+
+default: --no-source --no-color --tags ~@wip --tags ~@proposal --require features
+html:    --no-source --no-color -f html -o ../../doc/Features.html -f pretty --tags ~@wip --tags ~@proposal --require features
+wip:     --tags @wip:3 --wip --require features
+junit:   -s --tags ~@wip --tags ~@proposal -f pretty -f junit -o ../../reports/tests --require features
+ci:      -s --tags ~@wip --tags ~@proposal -f pretty -f junit -o ../../reports/tests -f html -o ../../doc/Features.html --require features
+jenkins_report: --format pretty --format json --out=reports/calabash.json
+
+default: -r features --tags ~@known_issue --tags ~@wip --tags ~@not_started --tags ~@inprogress --tags ~@skip --color --format pretty --format         html -o iNotary_functional_tests_results.html --dotcucumber features/.cucumber
+
+ci_default: -r features DISPLAY=:99.0 HEADLESS=true --tags ~@known_issue --tags ~@wip --tags ~@not_started --tags ~@inprogress --tags ~@skip -             -format progress --format html -o results.html --format junit -o junit
+
+
+# Tags
+done:    --tags 'not @wip' --no-snippets
+ci:      --tags ~@wip --format html --out reports/cucumber.html --format junit --out reports/cucumber-xml --format pretty --strict features
+wip:     --wip --tags @wip --format html --out reports/cucumber_wip.html --format pretty features
+ignore:  --tags ~@ignore
+test:    --tags @test
+bugs:    -r features --tags ~@wip --tags @bug --color --format pretty --format html -o results/results.html --dotcucumber features/.cucumber --format junit -o junit
+
+
+# Reports
+html_report: --format html --out=cucumber-html-reports/cucumber-report.html --format pretty
+json_report: --format json --out=cucumber-html-reports/cucumber-report.json --format pretty
+
+
