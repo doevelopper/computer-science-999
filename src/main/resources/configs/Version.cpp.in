@@ -1,0 +1,199 @@
+
+/*
+#
+#               Copyright (c) 2014-2018 A.H.L
+#
+#        Permission is hereby granted, free of charge, to any person obtaining
+#        a copy of this software and associated documentation files (the
+#        "Software"), to deal in the Software without restriction, including
+#        without limitation the rights to use, copy, modify, merge, publish,
+#        distribute, sublicense, and/or sell copies of the Software, and to
+#        permit persons to whom the Software is furnished to do so, subject to
+#        the following conditions:
+#
+#        The above copyright notice and this permission notice shall be
+#        included in all copies or substantial portions of the Software.
+#
+#        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+#        EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+#        MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+#        NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+#        LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+#        OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+#        WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
+
+#include <regex>
+#include <computer/science/Version.hpp>
+
+using namespace semver;
+
+Version::Version( const std::string & vers) noexcept
+:  m_major (APPLICATION_VERSION_MAJOR)
+,  m_minor (APPLICATION_VERSION_MINOR)
+,  m_patch (APPLICATION_VERSION_PATCH)
+//,  m_sha (GIT_COMMIT_VERSION)
+
+{
+    //std::sscanf(vers,"%lu.%lu.%lu-%5[^.].%lu",
+}
+
+Version::~Version()
+{
+
+}
+
+int Version::getMajor ()
+{
+    return VERSION_MAJOR;
+}
+
+int Version::getMinor ()
+{
+    return VERSION_MINOR;
+}
+
+int Version::getPatch ()
+{
+    return VERSION_PATCH;
+}
+
+std::string Version::getABI ()
+{
+    // return @NAMESPACE@_VERSION_ABI;
+
+    return ("Based on ");
+}
+
+bool Version::check ()
+{
+    return (getMajor() == VERSION_MAJOR && getMinor() == VERSION_MINOR);
+}
+
+std::string Version::getString ()
+{
+    std::ostringstream version;
+    version << getMajor() << '.' << getMinor() << '.' << getPatch() << " " << __DATE__ << " " <<__TIME__;
+    return version.str();
+}
+
+std::string Version::getRevision ()
+{
+    // return @NAMESPACE@_VERSION_REVISION;
+    return ("std::string( GIT_COMMIT_VERSION)");
+}
+
+std::string Version::getRevString ()
+{
+    std::ostringstream version;
+    version << getString(); // << '.' << std::hex << getRevision() << std::dec;
+    return version.str();
+}
+
+/*
+   std::string Version::getSchema ()
+   {
+    return R "(
+        {
+            "title ": "Version ",
+            "type ": "object ",
+            "description ": "Version information of the running application ",
+            "properties ": {
+                "major ": { "type ": "integer " },
+                "minor ": { "type ": "integer " },
+                "tweak ": { "type ": "integer " },
+                "patch ": { "type ": "integer " },
+                "abi ": { "type ": "integer " },
+                "revision ": { "type ": "string " }
+            }
+        }
+    )";
+   }
+
+   std::string Version::toJSON ()
+   {
+    return R "(
+        {
+            "major ": @PROJECT_VERSION_MAJOR@,
+            "minor ": @PROJECT_VERSION_MINOR@,
+            "tweak ": @PROJECT_VERSION_PATCH@,
+            "patch ": @PROJECT_VERSION_PATCH@,
+            "abi ": @PROJECT_VERSION_ABI@,
+            "revision ": " @GIT_REVISION@ "
+        }
+    )";
+   }
+ */
+
+
+constexpr int Version::compareVersion (const Version &rhs) const
+{
+    // size_t min = this->minor < rhs.minor;
+
+ //   if ( *this == rhs )
+//    {
+//        return false;
+//    }
+//    else
+    if ( m_major != rhs.m_major )
+    {
+        return (m_major < rhs.m_major);
+    }
+    else
+    if ( m_minor != rhs.m_minor )
+    {
+        return (m_minor < rhs.m_minor);
+    }
+    else
+    if ( m_patch != rhs.m_patch )
+    {
+        return (m_patch < rhs.m_patch);
+    }
+    else if ( m_build != rhs.m_build )
+    {
+        return (m_build < rhs.m_build);
+    }
+    /*
+    else
+    if ( m_extra.isEmpty() && !rhs.m_extra.isEmpty() )
+    {
+        return (false);
+    }
+    else if ( !extra.isEmpty() && rhs.extra.isEmpty() )
+    {
+        return (true);
+    }
+        if (m_releaseType != rhs.m_releaseType) {
+      return static_cast<std::uint8_t>(m_releaseType) - static_cast<std::uint8_t>(rhs.m_releaseType);
+    }
+*/
+}
+
+/*!
+ * @brief Regex to capture semantic version
+ * @note The regex matches case insensitive
+ *       (1) major version 0 or unlimited number
+ *       (2) . minor version (0 or unlimited number)
+ *       (3) . patch version (0 or unlimited number)
+ *       (4) optional pre-release following a dash consisting of a alphanumeric letters
+ *           and hyphens using a non-capture subclause to exclude the dash from the
+ *           pre-release string
+ *       (5) optional build following a plus consisting of alphanumeric letters and
+ *           hyphens using a non-capture subclause to exclude the plus from the build string
+ *           Metadata (build time, number, etc.)
+ */
+
+void Version::set(const std::string & vers)
+{
+    auto semver = std::regex(
+                  "^(0|[1-9][0-9]*)"                   // (1)
+                  "\\.(0|[1-9][0-9]*)"                 // (2)
+                  "\\.(0|[1-9][0-9]*)"                 // (3)
+                  "(?:\\-([0-9a-z-]+[\\.0-9a-z-]*))?"  // (4)
+                  "(?:\\+([0-9a-z-]+[\\.0-9a-z-]*))?"  // (5)
+                  , std::regex_constants::ECMAScript
+                  | std::regex_constants::icase);
+// ^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-[a-zA-Z\d][-a-zA-Z.\d]*)?(\+[a-zA-Z\d][-a-zA-Z.\d]*)?$
+//(?<Major>0|(?:[1-9]\d*))(?:\.(?<Minor>0|(?:[1-9]\d*))(?:\.(?<Patch>0|(?:[1-9]\d*)))?(?:\-(?<PreRelease>[0-9A-Z\.-]+))?(?:\+(?<Meta>[0-9A-Z\.-]+))?)?
+}
+

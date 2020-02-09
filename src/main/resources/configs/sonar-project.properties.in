@@ -1,0 +1,42 @@
+# Sonar cloud configuration fo @PROJECT_NAME@ - @CPP_LOGGER_VERSION@
+#
+# Description: @PROJECT_DESCRIPTION@
+
+# Add more detail to both client and server-side analysis logs.
+sonar.verbose=false
+
+#-----------------------------------------------------------------------------
+#
+# Sonar cloud (sonarcloud.io) related settings.
+#
+#-----------------------------------------------------------------------------
+
+# The project key that is unique for each project.
+sonar.projectKey=doevelopper_cfs-osal
+sonar.organization=cfs-osal-github
+sonar.host.url=https://sonarcloud.io
+
+# Sonar cloud access token.
+sonar.login=@SONAR_CLOUD_TOKEN@
+
+# wrapper MUSt use this directory to produce it's data
+sonar.cfamily.build-wrapper-output=@CMAKE_CURRENT_BINARY_DIR@/bw-output
+sonar.cfamily.gcov.reportsPath=@CMAKE_CURRENT_BINARY_DIR@
+
+#-----------------------------------------------------------------------------
+#
+# Project related properties.
+#
+#-----------------------------------------------------------------------------
+
+# Name of the project that will be displayed on the web interface.
+sonar.projectName=@PROJECT_NAME@
+sonar.projectVersion=@CFS_OSAL_VERSION@
+sonar.links.homepage==https://github.com/doevelopper/cfs-osal
+
+# Base directory
+sonar.projectBaseDir=@CMAKE_SOURCE_DIR@
+
+# directories that contain code to analyze
+sonar.sources=src,include
+sonar.tests=tests
