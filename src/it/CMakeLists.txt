@@ -11,9 +11,9 @@ apply_style_targets_command(${PROJECT_NAME}.integration-test ${CMAKE_CURRENT_SOU
 target_link_libraries(${PROJECT_NAME}.integration-test
     PUBLIC
         ${PROJECT_NAME}.main
-        CucumberCpp::cucumber-cpp
+        CUCUMBER-CPP::CUCUMBER-CPP
         #BENCHMARK::BENCHMARK
 )
 
-add_feature_test_command(${PROJECT_NAME}.integration-test ${CMAKE_CURRENT_SOURCE_DIR})
+#add_feature_test_command(${PROJECT_NAME}.integration-test ${CMAKE_CURRENT_SOURCE_DIR})
 

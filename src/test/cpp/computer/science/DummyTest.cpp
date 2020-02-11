@@ -20,7 +20,7 @@ DummyTest::~DummyTest()
 void DummyTest::SetUp ()
 {
     LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
-    dummy = new ccomputer::science::Dummy();
+    dummy = new computer::science::Dummy();
 }
 
 void DummyTest::TearDown ()

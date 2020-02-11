@@ -54,7 +54,17 @@ generate: ## Create build directories
 
 .PHONY: configure
 configure: generate ## Generate Cmake Build configurations in ${BUILD_DIRECTORY}
-	@cmake -E chdir ${BUILD_DIRECTORY} cmake -G "Unix Makefiles" -DCMAKE_PREFIX_PATH=/opt/dds -DCMAKE_INSTALL_PREFIX=$(basename $(pwd))-build/.local ..
+	@cmake -E chdir ${BUILD_DIRECTORY} cmake -G "Unix Makefiles" \
+		-DCMAKE_PREFIX_PATH=/opt/dds \
+		-DCMAKE_INSTALL_PREFIX=$(basename $(pwd))-build/.local \
+		"-DCMAKE_LINK_WHAT_YOU_USE=TRUE" \
+		"-DCMAKE_CXX_CPPLINT=/usr/local/bin/cpplint;--linelength=120" \
+		"-DCMAKE_CXX_CPPCHECK=/usr/local/bin/cppcheck;--std=c++17" \
+		..
+
+#"-DCMAKE_CXX_CLANG_TIDY=/usr/bin/clang-tidy-3.9;-checks=*" \
+	..
+#"-DCMAKE_CXX_INCLUDE_WHAT_YOU_USE=/usr/bin/iwyu;--transitive_includes_only" ..
 
 .PHONY: build
 build: configure ## Build projects main sources

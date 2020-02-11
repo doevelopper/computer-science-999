@@ -129,17 +129,6 @@ configure_file("${PROJECT_SOURCE_DIR}/src/main/resources/configs/Version.cpp.in"
 include(CMakePackageConfigHelpers)
 write_basic_package_version_file(${CMAKE_INSTALL_PREFIX}/cmake/computer-science-config-version.cmake COMPATIBILITY ExactVersion)
 
-
-#add_custom_target(build-time-make-directory-and-copy-files verify all
-#    #COMMAND LD_LIBRARY_PATH=${ROOT_LIBRARY_DIR} ROOTSYS=${ROOTSYS} make
-#    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}/bin/conf
-#    COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_INSTALL_PREFIX}/bin/logs
-#    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-#            ${PROJECT_SOURCE_DIR}/src/main/resources/configs/log4cxx.xml
-#            ${CMAKE_INSTALL_PREFIX}/bin/conf
-#)
-
-
 add_subdirectory (src/main/cpp)
 add_subdirectory (src/test/cpp)
 #add_subdirectory (src/it)

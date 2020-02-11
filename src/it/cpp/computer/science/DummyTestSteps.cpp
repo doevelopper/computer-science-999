@@ -2,6 +2,7 @@
 #include <computer/science/DummyTestSteps.hpp>
 
 using cucumber::ScenarioScope;
+using namespace computer::science
 using namespace ::testing;
 
 DummyCtx::DummyCtx()
@@ -25,7 +26,7 @@ GIVEN("^a dummy initialised with \"([^\"]*)\" and \"([^\"]*)\"$")
     REGEX_PARAM(std::string, hello_string);
     REGEX_PARAM(std::string, world_string);
     ScenarioScope<DummyCtx> context{};
-    context->dummies.emplace_back(cpp101::Dummy{hello_string, world_string});
+    context->dummies.emplace_back(computer::science::Dummy{hello_string, world_string});
 }
 
 GIVEN("^the following dummies:$")
@@ -36,7 +37,7 @@ GIVEN("^the following dummies:$")
 
     for (const auto& table_row : dummies_table)
     {
-       context->dummies.emplace_back(cpp101::Dummy{std::string{table_row.at("hello")},
+       context->dummies.emplace_back(computer::science::Dummy{std::string{table_row.at("hello")},
        std::string{table_row.at("world")}});
     }
 }
@@ -63,3 +64,4 @@ THEN("^the dummy should say \"([^\"]*)\"$")
     ASSERT_STREQ(context->say_hello_result.c_str(), hello_world_string.c_str());
 }
 */
+

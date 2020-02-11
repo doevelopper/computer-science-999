@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include <boost/shared_ptr.hpp>
-#include <computer/science/tools/Dummy.hpp>
+#include <computer/science/Dummy.hpp>
 #include <log4cxx/logger.h>
 
 namespace computer::science::test
@@ -27,8 +27,8 @@ namespace computer::science::test
 
         protected:
 
-            cpp101::Dummy *           dummy;
-            static log4cxx::LoggerPtr logger;
+            computer::science::Dummy * dummy;
+            static log4cxx::LoggerPtr  logger;
 
         private:
 
