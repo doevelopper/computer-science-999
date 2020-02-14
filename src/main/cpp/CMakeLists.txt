@@ -27,6 +27,11 @@ add_library(${PROJECT_NAME}.main)
 target_sources(${PROJECT_NAME}.main
     PUBLIC
         computer/science/Dummy
+        computer/science/Calendar
+
+        computer/science/CSVector
+        computer/science/CSList
+        computer/science/CSQueue
 )
 
 apply_style_targets_command (${PROJECT_NAME}.main ${CMAKE_CURRENT_SOURCE_DIR})
@@ -134,9 +139,9 @@ target_include_directories(${PROJECT_NAME}.main
 #        $<BUILD_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/computer/science>
 #        $<INSTALL_INTERFACE:include>
 
-     SYSTEM
-         PUBLIC
-             ${CMAKE_INSTALL_INCLUDEDIR}/computer/science
+#     SYSTEM
+#         PUBLIC
+#             ${CMAKE_INSTALL_INCLUDEDIR}/computer/science
 )
 
 target_link_libraries(${PROJECT_NAME}.main
@@ -157,9 +162,11 @@ target_link_libraries(${PROJECT_NAME}.main.bin
         LOG4CXX::LOG4CXX
 )
 
+add_dependencies(compile ${PROJECT_NAME}.main.bin)
+
 #EXPORT LIBRARY INTERFACE
 
-#install(TARGETS cfs.algo.main
+#install(TARGETS ${PROJECT_NAME}.main
 #    EXPORT ${PROJECT_NAME}.main-Targets
 #    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 #    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -169,10 +176,10 @@ target_link_libraries(${PROJECT_NAME}.main.bin
 #     PUBLIC_HEADER DESTINATION ${INCLUDE_INSTALL_DIR}/computer/science
 #)
 
-#install(EXPORT cfs.algo.main-Targets
+#install(EXPORT ${PROJECT_NAME}.main-Targets
 #    DESTINATION lib/cmake/computer/science
 #    FILE ${PROJECT_NAME}.main-Targets.cmake
-#    NAMESPACE CFS::HAL
+#    NAMESPACE CS::101
 #)
 
 #install(DIRECTORY include/computer/science
@@ -187,4 +194,6 @@ target_link_libraries(${PROJECT_NAME}.main.bin
 #install(FILES cs-Config.cmake ${CMAKE_CURRENT_BINARY_DIR}/cs-ConfigVersion.cmake
 #    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/cs
 #)
+
+
 

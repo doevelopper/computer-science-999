@@ -1,3 +1,5 @@
+
+
 #ifndef CPPBDD101_FEATURES_STEP_DEFINITIONS_ITTEST_HPP
 #define CPPBDD101_FEATURES_STEP_DEFINITIONS_ITTEST_HPP
 
@@ -6,15 +8,16 @@
 
 using cucumber::ScenarioScope;
 
-class ItTest 
+class ItTest
 {
-public:
-    ItTest();
-    ItTest(int argc, char* argv[]);
-    ItTest(const ItTest& orig);
-    virtual ~ItTest();
-private:
+    public:
 
+        ItTest();
+        ItTest(int argc, char* argv[]);
+        ItTest(const ItTest& orig);
+        virtual ~ItTest();
+
+    private:
 };
 
 #endif

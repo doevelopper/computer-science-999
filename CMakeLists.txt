@@ -131,5 +131,5 @@ write_basic_package_version_file(${CMAKE_INSTALL_PREFIX}/cmake/computer-science-
 
 add_subdirectory (src/main/cpp)
 add_subdirectory (src/test/cpp)
-#add_subdirectory (src/it)
+add_subdirectory (src/it)
 

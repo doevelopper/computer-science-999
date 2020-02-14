@@ -55,44 +55,44 @@ generate: ## Create build directories
 .PHONY: configure
 configure: generate ## Generate Cmake Build configurations in ${BUILD_DIRECTORY}
 	@cmake -E chdir ${BUILD_DIRECTORY} cmake -G "Unix Makefiles" \
-		-DCMAKE_PREFIX_PATH=/opt/dds \
-		-DCMAKE_INSTALL_PREFIX=$(basename $(pwd))-build/.local \
 		"-DCMAKE_LINK_WHAT_YOU_USE=TRUE" \
-		"-DCMAKE_CXX_CPPLINT=/usr/local/bin/cpplint;--linelength=120" \
-		"-DCMAKE_CXX_CPPCHECK=/usr/local/bin/cppcheck;--std=c++17" \
-		..
+		"-DCMAKE_CXX_CPPLINT=/usr/local/bin/cpplint;--linelength=120;--extensions=cpp,hpp;--filter=-whitespace/braces;--exclude=$(shell pwd -P)/src/test/cpp/*;--exclude=$(shell pwd -P)/src/test/cpp/*/*" \
+		"-DCMAKE_CXX_CPPCHECK=/usr/local/bin/cppcheck;--template=gcc;--std=c++17;--quiet;--platform=unix64;--report-progress;--enable=warning,performance,portability,information,missingInclude,style;--project=$(shell pwd -P)/${BUILD_DIRECTORY}/compile_commands.json" \
+		-DCMAKE_PREFIX_PATH=/opt/dds \
+		-DCMAKE_INSTALL_PREFIX=$(basename $(pwd))-build/.local ..
+#		"-DCMAKE_CXX_CPPLINT=/usr/local/bin/cpplint;--linelength=120;--include_what_you_use;--filter=$(shell pwd -P)/src/main/resources/configs/CPPLINT.cfg;--recursive;--extensions=cpp,hpp" \
 
-#"-DCMAKE_CXX_CLANG_TIDY=/usr/bin/clang-tidy-3.9;-checks=*" \
-	..
-#"-DCMAKE_CXX_INCLUDE_WHAT_YOU_USE=/usr/bin/iwyu;--transitive_includes_only" ..
-
-.PHONY: build
-build: configure ## Build projects main sources
+.PHONY: compile
+compile: configure ## Build projects main sources
 	@cmake --build ${BUILD_DIRECTORY} --target compile
 
 .PHONY: test
-test: build ## Build projects test sources and run unit test
+test: compile ## Build projects test sources and run unit test
 	@cmake --build ${BUILD_DIRECTORY} --target test-compile
 	@cmake --build ${BUILD_DIRECTORY} --target test
 
-.PHONY:  integration-test
-integration-test: ## Build integrations steps and run integrqtion test
+.PHONY: integration-test
+integration-test: test ## Build integrations steps and run integrqtion test
 	@cmake --build ${BUILD_DIRECTORY} --target integration-test
 
 .PHONY: install
 install: ## Install package in outpout directory build
 	@cmake --build ${BUILD_DIRECTORY} --target install
 
-.PHONY: end-to-end
-end-to-end: ## Run all goals
+.PHONY: verify
+verify: ## Run all goals
 	@cmake --build ${BUILD_DIRECTORY} --target all
 
 .PHONY: usage
 usage: ## Displays all goals available for cmake build
 	@cmake --build ${BUILD_DIRECTORY} --target help
 
+.PHONY: clean
+clean: ## Displays all goals available for cmake build
+	@cmake --build ${BUILD_DIRECTORY} --target clean
+
 .PHONY: all
-all: build
+all: compile
 
 .PHONY: help
 help: ## Display this help and exits.

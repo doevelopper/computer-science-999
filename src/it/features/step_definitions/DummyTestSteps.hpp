@@ -1,3 +1,5 @@
+
+
 #ifndef CPPBDD101_FEATURES_STEP_DEFINITIONS_DUMMYTESTSTEPS_HPP
 #define CPPBDD101_FEATURES_STEP_DEFINITIONS_DUMMYTESTSTEPS_HPP
 
@@ -16,11 +18,12 @@
 struct DummyCtx
 {
     DummyCtx();
-	~DummyCtx();
+    ~DummyCtx();
     std::vector<cpp101::Dummy> dummies{};
     std::string say_hello_result{};
-	void loop(std::mutex & mutex, bool const & running);
+    void loop(std::mutex & mutex, bool const & running);
 };
 
 
 #endif
+
