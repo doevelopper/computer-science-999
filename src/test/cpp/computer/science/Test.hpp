@@ -5,6 +5,7 @@
 
 #include <vector>
 #include <gtest/gtest.h>
+#include <computer/science/Logger.hpp>
 
 namespace computer::science::test
 {
@@ -19,17 +20,19 @@ namespace computer::science::test
 
             int run (int argc = 0, char * argv[] = NULL);
             static void showUsage(std::string name);
+            // Mechanism for reporting unit tests for which there is no implementation yet.
+            void notYetImplemented();
 
         private:
 
-            std::string                m_testSuites;
-            unsigned int               m_numberOfTestIteration;
-            static const unsigned long LOGGER_WATCH_DELAY;
-            //::Logger * m_loggerService;
+            std::string                 m_testSuites;
+            unsigned int                m_numberOfTestIteration;
+            static const unsigned long  LOGGER_WATCH_DELAY;
+            computer::science::Logger * m_loggerService;
             /*!
              * @brief Class logger.
              */
-            //static log4cxx::LoggerPtr logger;
+            static log4cxx::LoggerPtr logger;
     };
 }
 

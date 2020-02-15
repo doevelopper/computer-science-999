@@ -5,7 +5,7 @@
 
 #include <vector>
 #include <computer/science/IContainer.hpp>
-
+#include <computer/science/Logger.hpp>
 namespace computer::science
 {
     class CSVector : public IContainer
@@ -27,7 +27,8 @@ namespace computer::science
 
         private:
 
-            std::vector<std::size_t> m_items;
+            std::vector<std::size_t>  m_items;
+            static log4cxx::LoggerPtr logger;
     };
 }
 #endif

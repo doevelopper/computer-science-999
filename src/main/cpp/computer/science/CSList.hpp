@@ -5,7 +5,7 @@
 
 #include <list>
 #include <computer/science/IContainer.hpp>
-
+#include <computer/science/Logger.hpp>
 namespace computer::science
 {
     class CSList : public IContainer
@@ -27,7 +27,8 @@ namespace computer::science
 
         private:
 
-            std::list<std::size_t> m_items;
+            std::list<std::size_t>    m_items;
+            static log4cxx::LoggerPtr logger;
     };
 }
 #endif

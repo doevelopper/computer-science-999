@@ -2,45 +2,64 @@
 
 #include <computer/science/Test.hpp>
 
+using namespace computer::science;
 using namespace computer::science::test;
 
-//log4cxx::LoggerPtr Test::logger = log4cxx::Logger::getLogger(std::string("cfs.dev.tools.Test") );
+log4cxx::LoggerPtr Test::logger = log4cxx::Logger::getLogger(std::string("computer.science.test.Test") );
 const unsigned long Test::LOGGER_WATCH_DELAY = 5000UL;
 
 
 Test::Test()
     : m_testSuites(std::string() )
     , m_numberOfTestIteration(1)
-    //    , m_loggerService(new ::Logger(LOGGER_WATCH_DELAY))
 {
-    //    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
+    this->m_loggerService = new ::Logger(LOGGER_WATCH_DELAY);
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 Test::Test(std::string & suite, unsigned int iteration)
     : m_testSuites(suite)
     , m_numberOfTestIteration(iteration)
-    //    , m_loggerService(new LoggingService(LOGGER_WATCH_DELAY))
+    , m_loggerService(new ::Logger(LOGGER_WATCH_DELAY))
 {
-    ///    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 Test::~Test()
 {
-    //    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
-    //    delete this->m_loggerService;
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
+    delete this->m_loggerService;
 }
 
 int Test::run (int argc, char * argv[])
 {
-    //    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
-    ::testing::InitGoogleTest(&argc, argv);
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
+    try
+    {
+        ::testing::InitGoogleTest(&argc, argv);
 
-    return RUN_ALL_TESTS();
+        return RUN_ALL_TESTS();
+    }
+    catch (std::exception & e)
+    {
+        std::cerr << "Issues while innitializing test environment" << typeid (e).name () << ": " << e.what ()<<
+        std::endl;
+    }
+    catch (...)
+    {
+        std::cerr << "Unhandled exception" <<std::endl;
+    }
+}
+
+void Test::notYetImplemented()
+{
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__ );
+    GTEST_NONFATAL_FAILURE_("Not YET implemented!!!!!!");
 }
 
 void Test::showUsage(std::string name)
 {
-    //    LOG4CXX_TRACE(logger ,"Usage called");
+    LOG4CXX_TRACE(logger,"Usage called");
 
     std::cerr << "Usage: " << name << " <option(s)> SOURCES \n"
               << "Options:\n"

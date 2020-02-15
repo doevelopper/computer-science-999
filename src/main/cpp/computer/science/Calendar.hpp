@@ -8,6 +8,8 @@
 #include <chrono>
 #include <climits>
 
+#include <computer/science/Logger.hpp>
+
 namespace computer::science
 {
     namespace detail
@@ -58,6 +60,8 @@ namespace computer::science
             unsigned int m_year;
             unsigned int m_month;
             unsigned int m_day;
+
+            static log4cxx::LoggerPtr logger;
     };
 }
 #endif

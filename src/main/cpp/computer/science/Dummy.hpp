@@ -12,8 +12,6 @@ namespace computer::science
      */
     class Dummy
     {
-        static log4cxx::LoggerPtr logger;
-
         public:
 
             Dummy();
@@ -34,9 +32,10 @@ namespace computer::science
 
         private:
 
-            std::string m_hello{};
-            std::string m_world{};
-            bool        m_speechless {true};
+            std::string               m_hello{};
+            std::string               m_world{};
+            bool                      m_speechless {true};
+            static log4cxx::LoggerPtr logger;
     };
 }
 #endif
