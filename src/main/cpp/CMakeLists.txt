@@ -32,15 +32,15 @@ target_sources(${PROJECT_NAME}.main
         computer/science/CSVector
         computer/science/CSList
         computer/science/CSQueue
-        #computer/science/pluralsight/mocking/MovieData
-        #computer/science/pluralsight/mocking/MetaDataProcessor
-        #computer/science/pluralsight/mocking/JsonHelper
-        #computer/science/pluralsight/mocking/FileErrorRepository
-        #computer/science/pluralsight/mocking/SettableMovieData
-        #computer/science/pluralsight/mocking/StringHtmlEncoder
-        #computer/science/pluralsight/mocking/TheMovieDbDataFactory
-        #computer/science/pluralsight/mocking/TheMovieDbRepository
-        #computer/science/pluralsight/mocking/RestApiClient
+        computer/science/pluralsight/mocking/MovieData
+        computer/science/pluralsight/mocking/MetaDataProcessor
+        computer/science/pluralsight/mocking/JsonHelper
+        computer/science/pluralsight/mocking/FileErrorRepository
+        computer/science/pluralsight/mocking/SettableMovieData
+        computer/science/pluralsight/mocking/StringHtmlEncoder
+        computer/science/pluralsight/mocking/TheMovieDbDataFactory
+        computer/science/pluralsight/mocking/TheMovieDbRepository
+        computer/science/pluralsight/mocking/RestApiClient
 )
 
 apply_style_targets_command (${PROJECT_NAME}.main ${CMAKE_CURRENT_SOURCE_DIR})

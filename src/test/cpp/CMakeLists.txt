@@ -17,6 +17,11 @@ target_sources(${PROJECT_NAME}.unit-test
         computer/science/FixtureCalendarTest
         computer/science/ParameterizedFixtureCalendarTest
         computer/science/FixtureWithParameterizedTestCalendarTest
+        computer/science/pluralsight/mocking/MetaDataProcessorTest
+        computer/science/pluralsight/mocking/JsonHelperTests
+        computer/science/pluralsight/mocking/TheMovieDbDataFactoryTests
+        computer/science/pluralsight/mocking/StringHtmlEncoderTests
+        computer/science/pluralsight/mocking/TheMovieDbRepositoryTests
 )
 
 apply_style_targets_command(${PROJECT_NAME}.unit-test ${CMAKE_CURRENT_SOURCE_DIR})
