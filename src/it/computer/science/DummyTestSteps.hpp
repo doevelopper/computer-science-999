@@ -23,6 +23,7 @@
 #include <string>
 #include <vector>
 #include <thread>
+#include <chrono>
 #include <mutex>
 #include <functional>
 
@@ -39,6 +40,7 @@ struct DummyCtx
     std::vector<computer::science::Dummy> dummies{};
     std::string say_hello_result{};
     void loop(std::mutex & mutex, bool const & running);
+    void yield(std::chrono::milliseconds ms);
 };
 
 

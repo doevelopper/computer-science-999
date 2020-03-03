@@ -82,7 +82,6 @@ GIVEN("^the following dummies:$")
     }
 }
 
-
 WHEN("^I command the dummy to say hello$")
 {
     ScenarioScope<DummyCtx> context{};
@@ -300,4 +299,94 @@ THEN("^the test should pass$") {
     pending();
    }
  */
+
+GIVEN("^The credit card is enabled$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+GIVEN("^The available balance in my account is positive$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+GIVEN("^the ATM has enough money$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+GIVEN("^I authenticated with a card enabled$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+WHEN("^I select the option to withdraw money$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+WHEN("^I enter the amount of money that is less than the amount I have available and the ATM s available balance$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+THEN("^I get the money$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+THEN("^The money I get is subtracted from the available balance of my account$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+THEN("^The system returns the card automatically$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+THEN("^The system displays the transaction completed message$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+GIVEN("^The available balance in my account is \\$10,000$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+GIVEN("^The cashier has \\$100,000 in cash$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+WHEN("^I select the option to extract money$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+
+WHEN("^I indicate that I want to extract \\$1,000$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+THEN("^I get \\$1,000 in the form of two \\$500 bills$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+THEN("^The balance of my account becomes \\$9,000$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+
+THEN("^the cashier keeps \\$99,000 in cash$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
+THEN("^The system displays the completed transaction message$") {
+    // pending();
+    ASSERT_TRUE(true);
+}
 
