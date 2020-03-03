@@ -12,23 +12,31 @@ using namespace computer::science;
 using namespace computer::science::test;
 
 template <typename V>
+log4cxx::LoggerPtr ContainerTest<V>::logger = log4cxx::Logger::getLogger(std::string(
+                                                                             "computer::science::test.ContainerTest"));
+
+template <typename V>
 ContainerTest<V>::ContainerTest()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 template <typename V>
 ContainerTest<V>::~ContainerTest()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 template <typename V>
 void ContainerTest<V>::SetUp()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 template <typename V>
 void ContainerTest<V>::TearDown()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 TYPED_TEST_P(ContainerTest, ShouldBeEmptyOnStartup)

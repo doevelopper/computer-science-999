@@ -24,6 +24,7 @@ namespace  computer::science
         protected:
 
             computer::science::Calendar * testee;
+            static log4cxx::LoggerPtr     logger;
 
         private:
     };

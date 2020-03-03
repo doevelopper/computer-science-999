@@ -1,4 +1,5 @@
 
+
 #ifndef CPPBDD101_LECTURES_GGLTEST_EXTENDEDTURTLETEST_HPP
 #define CPPBDD101_LECTURES_GGLTEST_EXTENDEDTURTLETEST_HPP
 
@@ -6,23 +7,24 @@
 
 class ExtendedTurtleTest : public ::testing::Test
 {
-public:
+    public:
 
-    ExtendedTurtleTest();
-    ExtendedTurtleTest(const ExtendedTurtleTest & orig);
-    virtual ~ExtendedTurtleTest();
+        ExtendedTurtleTest();
+        ExtendedTurtleTest(const ExtendedTurtleTest & orig);
+        virtual ~ExtendedTurtleTest();
 
-    virtual void SetUp ();
+        virtual void SetUp ();
 
-    virtual void TearDown ();
+        virtual void TearDown ();
 
-protected:
+    protected:
 
-    static MockTurtleDelegate * objectUnderTest;
-    static log4cxx::LoggerPtr logger;
+        static MockTurtleDelegate * objectUnderTest;
+        static log4cxx::LoggerPtr   logger;
 
-private:
+    private:
 };
 
 
 #endif
+

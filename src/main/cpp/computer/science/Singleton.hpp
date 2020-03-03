@@ -1,3 +1,5 @@
+
+
 #ifndef CPPBDD101_SINGLETON_HPP
 #define CPPBDD101_SINGLETON_HPP
 
@@ -10,30 +12,29 @@ class Singleton
 {
     friend class SingletonFactory<T>;
 
-protected:
+    protected:
 
-    Singleton();
-    Singleton & operator=(const Singleton & rsh);
+        Singleton();
+        Singleton & operator=(const Singleton & rsh);
 
-public:
+    public:
 
-    Singleton(const Singleton&) = delete;
-    Singleton(Singleton&&) = delete;
-    Singleton& operator=(Singleton&&) = delete;
-    virtual ~Singleton();
+        Singleton(const Singleton&) = delete;
+        Singleton(Singleton&&) = delete;
+        Singleton& operator=(Singleton&&) = delete;
+        virtual ~Singleton();
 
-    static T* instance()
-    {
-	return mp_Instance.get();
-    }
+        static T* instance()
+        {
+            return mp_Instance.get();
+        }
 
-protected:
+    protected:
 
-    static std::auto_ptr<T> mp_Instance;
-
+        static std::auto_ptr<T> mp_Instance;
 };
 
-template <typename T> 
+template <typename T>
 std::auto_ptr<T> Singleton<T>::mp_Instance;
 
 #endif

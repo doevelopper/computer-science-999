@@ -9,8 +9,8 @@ target_sources(${PROJECT_NAME}.unit-test.bin
 
 target_sources(${PROJECT_NAME}.unit-test
     PUBLIC
-        computer/science/DummyTest
 		computer/science/Test
+        computer/science/DummyTest
         computer/science/ContainerTest
         computer/science/SimpleCalendarTest
         computer/science/MultipleParametersCalendarTest
@@ -41,7 +41,7 @@ target_link_libraries(${PROJECT_NAME}.unit-test.bin
 
 gtest_discover_tests(${PROJECT_NAME}.unit-test.bin
     TEST_PREFIX
-        "C_S:-: "
+        "${PROJECT_NAME} :-: "
     TEST_SUFFIX
         ----
     PROPERTIES LABELS ${PROJECT_NAME}

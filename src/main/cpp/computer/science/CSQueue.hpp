@@ -5,7 +5,7 @@
 
 #include <deque>
 #include <computer/science/IContainer.hpp>
-#include <computer/science/Logger.hpp>
+#include <computer/science/LoggingService.hpp>
 namespace computer::science
 {
     class CSQueue : public IContainer

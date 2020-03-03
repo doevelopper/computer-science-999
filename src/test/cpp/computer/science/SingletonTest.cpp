@@ -1,26 +1,22 @@
 
+
 #include <cppbdd101/SingletonTest.hpp>
 
 SingletonTest::SingletonTest()
 {
-
 }
 
 SingletonTest::~SingletonTest()
 {
-
 }
 
 void SingletonTest::SetUp ()
 {
-
 }
 
 void SingletonTest::TearDown ()
 {
-
 }
-
 
 TEST_F(SingletonTest, instance_BasicType)
 {
@@ -54,29 +50,28 @@ TEST_F(SingletonTest, EngineAbortState )
     //EXPECT_EQ(1, *Singleton<int>::get());
 }
 
-TEST_F(SingletonTest, EngineAbortState ) 
+TEST_F(SingletonTest, EngineAbortState )
 {
     //ASSERT_NE( nullptr, pyralis::EngineAbortState::instance() );
 }
 
-TEST_F(SingletonTest, EngineCutoffState ) 
+TEST_F(SingletonTest, EngineCutoffState )
 {
     //ASSERT_NE( nullptr, pyralis::EngineCutoffState::instance() );
 }
 
-TEST_F(SingletonTest, EnginePassiveState ) 
+TEST_F(SingletonTest, EnginePassiveState )
 {
-   // ASSERT_NE( nullptr, pyralis::EnginePassiveState::instance() );
+    // ASSERT_NE( nullptr, pyralis::EnginePassiveState::instance() );
 }
 
-TEST_F(SingletonTest, EngineStartupState ) 
+TEST_F(SingletonTest, EngineStartupState )
 {
     //ASSERT_NE( nullptr, pyralis::EngineStartupState::instance() );
 }
 
-TEST_F(SingletonTest, EngineThrustState ) 
+TEST_F(SingletonTest, EngineThrustState )
 {
-   // ASSERT_NE( nullptr, pyralis::EngineThrustState::instance() );
+    // ASSERT_NE( nullptr, pyralis::EngineThrustState::instance() );
 }
-
 

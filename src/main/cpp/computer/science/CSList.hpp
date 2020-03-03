@@ -5,7 +5,7 @@
 
 #include <list>
 #include <computer/science/IContainer.hpp>
-#include <computer/science/Logger.hpp>
+#include <computer/science/LoggingService.hpp>
 namespace computer::science
 {
     class CSList : public IContainer

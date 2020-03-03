@@ -1,3 +1,5 @@
+
+
 #ifndef CPPBDD101_LECTURES_GGLTEST_PAINTERTEST_HPP
 #define CPPBDD101_LECTURES_GGLTEST_PAINTERTEST_HPP
 #include <gmock/gmock.h>
@@ -8,23 +10,22 @@ using ::testing::AtLeast;
 
 class PainterTest : public ::testing::Test
 {
+    public:
 
-public:
+        PainterTest();
+        PainterTest(const PainterTest & orig);
+        virtual ~PainterTest();
 
-    PainterTest();
-    PainterTest(const PainterTest & orig);
-    virtual ~PainterTest();
+    protected:
 
-protected:
+        void canDrawSomething ();
+        static Painter *          objectUnderTest;
+        static MockTurtle *       turtleMock;
+        static log4cxx::LoggerPtr logger;
 
-    void canDrawSomething ();
-    static Painter * objectUnderTest;
-    static MockTurtle * turtleMock;
-    static log4cxx::LoggerPtr logger;
-
-private:
-
+    private:
 };
 
 
 #endif
+

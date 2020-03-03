@@ -1,3 +1,5 @@
+
+
 #include <computer/science/NonCopyableNorMovable.hpp>
 
 using namespace computer::science;

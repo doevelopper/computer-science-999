@@ -26,12 +26,21 @@ add_library(${PROJECT_NAME}.main)
 
 target_sources(${PROJECT_NAME}.main
     PUBLIC
+        computer/science/LoggingService
         computer/science/Dummy
         computer/science/Calendar
-
         computer/science/CSVector
         computer/science/CSList
         computer/science/CSQueue
+        #computer/science/pluralsight/mocking/MovieData
+        #computer/science/pluralsight/mocking/MetaDataProcessor
+        #computer/science/pluralsight/mocking/JsonHelper
+        #computer/science/pluralsight/mocking/FileErrorRepository
+        #computer/science/pluralsight/mocking/SettableMovieData
+        #computer/science/pluralsight/mocking/StringHtmlEncoder
+        #computer/science/pluralsight/mocking/TheMovieDbDataFactory
+        #computer/science/pluralsight/mocking/TheMovieDbRepository
+        #computer/science/pluralsight/mocking/RestApiClient
 )
 
 apply_style_targets_command (${PROJECT_NAME}.main ${CMAKE_CURRENT_SOURCE_DIR})
@@ -79,6 +88,9 @@ target_compile_features(${PROJECT_NAME}.main
 )
 
 target_compile_definitions(${PROJECT_NAME}.main
+    PUBLIC
+        "LOGGING_LEVEL=$<IF:$<BOOL:${LOG_ALL}>,true,false>"
+        LOG_ALL
     PRIVATE
         "VERBOSITY=$<IF:$<BOOL:${VERBOSE}>,30,10>"
 

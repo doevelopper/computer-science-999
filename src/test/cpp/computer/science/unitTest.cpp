@@ -1,5 +1,22 @@
 
 
+/*
+ *      Copyright {{ year }} {{ organization }}
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+    or implied. See the License for the specific language governing
+    permissions and limitations under the License.
+ */
+
+
 #include <iostream>
 #include <cstdlib>
 
@@ -9,21 +26,8 @@ int main(int argc, char**argv)
 {
     computer::science::test::Test csTest;
 
-#if !defined(HAVE_LOG4CXX)
-
-    std::cout << "TEST CPP-101: C++ Object Oriented Programming!" << std::endl;
-    std::cout << "Simple and obvious Unit test frameworks" << std::endl;
-    std::cout << "Each Test module should be able to have many small test cases." << std::endl;
-
-#else
-
-    LOG4CXX_TRACE(log4cxx::Logger::getRootLogger(),"TEST CPP-101: C++ Object Oriented Programming!");
-    LOG4CXX_TRACE(log4cxx::Logger::getRootLogger(),"Simple and obvious Unit test frameworks");
-    LOG4CXX_TRACE(log4cxx::Logger::getRootLogger(),"Each Test module should be able to have many small test cases.");
-    LOG4CXX_INFO(log4cxx::Logger::getRootLogger() , __LOG4CXX_FUNC__ );
-
-#endif
-
+    LOG4CXX_TRACE(log4cxx::Logger::getRootLogger(),"TEST CPP-101: !");
+    LOG4CXX_INFO(log4cxx::Logger::getRootLogger(), __LOG4CXX_FUNC__ );
     csTest.run(argc,argv);
 
     return (EXIT_SUCCESS);

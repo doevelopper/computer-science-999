@@ -8,7 +8,7 @@
 #include <chrono>
 #include <climits>
 
-#include <computer/science/Logger.hpp>
+#include <computer/science/LoggingService.hpp>
 
 namespace computer::science
 {

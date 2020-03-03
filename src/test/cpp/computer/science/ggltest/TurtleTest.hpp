@@ -1,3 +1,5 @@
+
+
 #ifndef CPPBDD101_LECTURES_GGLTEST_TURTLETEST_HPP
 #define CPPBDD101_LECTURES_GGLTEST_TURTLETEST_HPP
 
@@ -9,22 +11,21 @@
 
 class TurtleTest : public ::testing::Test
 {
+    public:
 
-public:
+        TurtleTest();
+        TurtleTest(const TurtleTest & orig);
+        virtual ~TurtleTest();
 
-    TurtleTest();
-    TurtleTest(const TurtleTest & orig);
-    virtual ~TurtleTest();
+        virtual void SetUp ();
+        virtual void TearDown ();
 
-    virtual void SetUp ();
-    virtual void TearDown ();
+    protected:
 
-protected:
-
-    MockTurtle * objectUnderTest;
-    static log4cxx::LoggerPtr logger;
-
+        MockTurtle *              objectUnderTest;
+        static log4cxx::LoggerPtr logger;
 };
 
 
 #endif
+

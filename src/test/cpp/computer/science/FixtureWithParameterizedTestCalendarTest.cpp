@@ -4,37 +4,47 @@
 
 using namespace computer::science;
 
+log4cxx::LoggerPtr FixtureWithParameterizedTestCalendarTest::logger = log4cxx::Logger::getLogger(std::string(
+                                                                                                     "computer.science.FixtureWithParameterizedTestCalendarTest"));
+
 FixtureWithParameterizedTestCalendarTest::FixtureWithParameterizedTestCalendarTest()
     : testee()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 FixtureWithParameterizedTestCalendarTest::~FixtureWithParameterizedTestCalendarTest()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
 }
 
 void FixtureWithParameterizedTestCalendarTest::SetUp()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
     testee = new computer::science::Calendar();
 }
 
 void FixtureWithParameterizedTestCalendarTest::TearDown()
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
     delete testee;
 }
 
 TEST_F(FixtureWithParameterizedTestCalendarTest, 1996_IsDivisibleBy4_ShouldBeALeapYear)
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
     ASSERT_TRUE(testee->isLeap(1996));
 }
 
 TEST_F(FixtureWithParameterizedTestCalendarTest, 1700_IsDivisibleBy100AndNotBy400_ShouldNotBeALeapYear)
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
     ASSERT_FALSE(testee->isLeap(1700));
 }
 
 TEST_F(FixtureWithParameterizedTestCalendarTest, 1600_IsDivisibleBy400_ShouldBeALeapYear)
 {
+    LOG4CXX_TRACE(logger, __LOG4CXX_FUNC__);
     ASSERT_TRUE(testee->isLeap(1600));
 }
 

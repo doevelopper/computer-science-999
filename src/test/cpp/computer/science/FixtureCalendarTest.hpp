@@ -2,9 +2,11 @@
 
 #ifndef COMPUTER_SCIENCE_FIXTURECALENDARTEST_HPP
 #define COMPUTER_SCIENCE_FIXTURECALENDARTEST_HPP
+
 #include <tuple>
 #include <gtest/gtest.h>
 #include <computer/science/Calendar.hpp>
+
 namespace computer::science
 {
     class FixtureCalendarTest : public ::testing::Test
@@ -24,6 +26,7 @@ namespace computer::science
         protected:
 
             computer::science::Calendar * testee;
+            static log4cxx::LoggerPtr     logger;
 
         private:
     };

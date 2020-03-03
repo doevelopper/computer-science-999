@@ -30,6 +30,8 @@ namespace computer::science::test
 
         protected:
 
+            static log4cxx::LoggerPtr logger;
+
         private:
     };
 
