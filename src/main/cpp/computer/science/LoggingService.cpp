@@ -154,7 +154,7 @@ bool LoggingService::initLogger ()
         log4cxx::helpers::Pool pool;
         consoleAppender->activateOptions(pool);
         log4cxx::BasicConfigurator::configure( consoleAppender );
-        log4cxx::Logger::getRootLogger( )->setLevel( LOG_ALL ? log4cxx::Level::getTrace( ) :
+        log4cxx::Logger::getRootLogger( )->setLevel( LOG_LEVEL ? log4cxx::Level::getTrace( ) :
                                                      log4cxx::Level::getInfo() );
 
         log4cxx::LogManager::getLoggerRepository()->setConfigured(true);

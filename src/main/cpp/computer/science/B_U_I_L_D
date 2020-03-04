@@ -1,0 +1,40 @@
+
+#load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+
+#cc_library(
+
+#    name = "computer-science",
+
+#    srcs = [
+#        "CSList.cpp",
+#        "CSQueue.cpp",
+#        "CSVector.cpp",
+#        "Calendar.cpp",
+#        "Dummy.cpp",
+#        "LoggingService.cpp",
+#    ],
+
+#    hdrs = [
+#        "IContainer.hpp",
+#        "Interface.hpp",
+#        "CSList.hpp",
+#        "CSQueue.hpp",
+#        "CSVector.hpp",
+#        "Calendar.hpp",
+#        "LoggingService.hpp",
+#        "Dummy.hpp",
+#    ],
+
+#    copts = [
+#        "-std=c++17",
+#        "-D_REENTRANT",
+#        "-DLOG_LEVEL=1",
+#    ],
+
+#    includes = [
+#        ".",
+#        "../../",
+#    ],
+
+#    visibility = ["//visibility:public"],
+#)

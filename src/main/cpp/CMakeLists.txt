@@ -28,10 +28,12 @@ target_sources(${PROJECT_NAME}.main
     PUBLIC
         computer/science/LoggingService
         computer/science/Dummy
+        computer/science/CopyableAndMovable
+        computer/science/CopyableOnly
         computer/science/Calendar
-        computer/science/CSVector
         computer/science/CSList
         computer/science/CSQueue
+        computer/science/CSVector
         computer/science/pluralsight/mocking/MovieData
         computer/science/pluralsight/mocking/MetaDataProcessor
         computer/science/pluralsight/mocking/JsonHelper
@@ -41,6 +43,7 @@ target_sources(${PROJECT_NAME}.main
         computer/science/pluralsight/mocking/TheMovieDbDataFactory
         computer/science/pluralsight/mocking/TheMovieDbRepository
         computer/science/pluralsight/mocking/RestApiClient
+
 )
 
 apply_style_targets_command (${PROJECT_NAME}.main ${CMAKE_CURRENT_SOURCE_DIR})
@@ -88,9 +91,10 @@ target_compile_features(${PROJECT_NAME}.main
 )
 
 target_compile_definitions(${PROJECT_NAME}.main
+
     PUBLIC
-        "LOGGING_LEVEL=$<IF:$<BOOL:${LOG_ALL}>,true,false>"
-        LOG_ALL
+        "LOG_LEVEL=$<IF:$<BOOL:${LOG_ALL}>,true,false>"
+
     PRIVATE
         "VERBOSITY=$<IF:$<BOOL:${VERBOSE}>,30,10>"
 
@@ -161,6 +165,8 @@ target_link_libraries(${PROJECT_NAME}.main
         $<$<PLATFORM_ID:Linux>:rt>
         $<$<PLATFORM_ID:Linux>:pthread>
         $<$<CONFIG:Coverage>:${CPP_COVERAGE_FLAGS}>
+        #CURL::libcurl
+        #RapidJSON::RapidJSON
         LOG4CXX::LOG4CXX
 )
 
@@ -178,20 +184,25 @@ add_dependencies(compile ${PROJECT_NAME}.main.bin)
 
 #EXPORT LIBRARY INTERFACE
 
-#install(TARGETS ${PROJECT_NAME}.main
-#    EXPORT ${PROJECT_NAME}.main-Targets
+
+install(TARGETS ${PROJECT_NAME}.main
+    EXPORT ${PROJECT_NAME}.main-Targets
+    DESTINATION lib
 #    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 #    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
 #    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 #    INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/computer/science
 #     FRAMEWORK DESTINATION ${FRAMEWORK_INSTALL_DIR}
 #     PUBLIC_HEADER DESTINATION ${INCLUDE_INSTALL_DIR}/computer/science
-#)
+)
 
 #install(EXPORT ${PROJECT_NAME}.main-Targets
-#    DESTINATION lib/cmake/computer/science
-#    FILE ${PROJECT_NAME}.main-Targets.cmake
-#    NAMESPACE CS::101
+#    DESTINATION
+#        lib/cmake/${PROJECT_NAME}
+#    FILE
+#        ${PROJECT_NAME}.main-Targets.cmake
+#    NAMESPACE
+#        ${PROJECT_NAME}::
 #)
 
 #install(DIRECTORY include/computer/science

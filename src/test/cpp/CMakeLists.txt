@@ -47,8 +47,7 @@ target_link_libraries(${PROJECT_NAME}.unit-test.bin
 gtest_discover_tests(${PROJECT_NAME}.unit-test.bin
     TEST_PREFIX
         "${PROJECT_NAME} :-: "
-    TEST_SUFFIX
-        ----
+        #TEST_SUFFIX     ...
     PROPERTIES LABELS ${PROJECT_NAME}
     DISCOVERY_TIMEOUT
         10
