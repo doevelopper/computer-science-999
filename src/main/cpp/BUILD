@@ -1,4 +1,6 @@
 
+package(default_visibility = ["//visibility:public"])
+
 #load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
 
 cc_library(
@@ -55,42 +57,36 @@ cc_library(
         "-lapr-1",
         "-laprutil-1",
         "-llog4cxx",
+		"-D_REENTRANT",
+        "-I/usr/local/include/",
     ],
+
+    linkopts = [
+        "-L/usr/local/lib",
+		"-pthread",
+        "-lapr-1",
+        "-laprutil-1",
+        "-llog4cxx",
+	],
 
 	includes = [
 		".",
-#		"computer",
-#		"computer/science",
-#		"computer/science/pluralsight",
-#		"computer/science/google",
-#		"computer/science/gotw",
-	],
-
-    linkopts = [
-		"-pthread",
-#		"-apr-1",
-#		"-aprutil-1",
-#		"-log4cxx",
 	],
 
     #visibility = ["//visibility:public"],
-    visibility = ["//main:__pkg__"],
+    #visibility = ["//main:__pkg__"],
 )
 
 
-#cc_binary(
-#    name = "computer-science-main.bin",
-#    srcs = ["computer/science/main.cpp"],
-#    copts = [
-#       "-std=c++17",
-#       "-DLOG_LEVEL=1",
-##       "-lapr-1",
-##       "-laprutil-1",
-##       "-llog4cxx",
-#    ],
+cc_binary(
+    name = "computer-science-main.bin",
+    srcs = ["computer/science/main.cpp"],
+    copts = [
+       "-std=c++17",
+    ],
 
-#    deps = [
-#        ":computer-science-main",
-#    ],
-#)
+    deps = [
+        ":computer-science-main",
+    ],
+)
 
