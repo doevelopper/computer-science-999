@@ -1,0 +1,219 @@
+stages:
+    - build test and feature-test
+    - Sw Quality Assessment
+    - code review
+    - cleanup and deploy
+    - wiki
+
+# ---------------------------------------------------------------------
+#
+# common variables for the various stages
+#
+# ---------------------------------------------------------------------
+
+variables:
+    GIT_DEPTH: "1"
+    GIT_SUBMODULE_STRATEGY: "none"
+    GET_SOURCES_ATTEMPTS: "3"
+    BUILD_DIRECTORY: "build-$CI_PROJECT_NAME"
+    COVERITY_COVERAGE_FLAG: "--all --enable-slow"
+    BASE_IMAGE: docker.io/doevelopper/cfs-dev-tools-common:0.0.1
+    COVERITY_COVERAGE_FLAG: "--all --enable-slow"
+
+# ---------------------------------------------------------------------
+#
+# gitlab-runner selection
+#
+# ---------------------------------------------------------------------
+
+.agent-who:
+    retry:
+        max: 1
+        when:
+            - unknown_failure
+            - api_failure
+            - runner_system_failure
+    tags:
+        - docker
+
+.prerequisites: &prerequisites
+    before_script:
+        - echo "Running $CI_JOB_NAME in stage $CI_JOB_STAGE"
+        - echo $CI_PIPELINE_ID
+        - gcc --version
+        - g++ --version
+        - cmake --version
+        - doxygen --version
+        - uncrustify --version
+        - mkdir -p ~/.docker
+        - "echo {\\\"auths\\\": {\\\"https://index.docker.io/v1/\\\": {\\\"auth\\\": \\\"`echo -n $DOCKER_USERNAME:$DOCKER_PASSWORD | base64`\\\"}}} > ~/.docker/config.json"
+
+.Log files: &log_files  [./*.log, ./build/logs/, ./bazel-*]
+
+bazel:gcc:compile:test:
+    stage: build test and feature-test
+    image: $BASE_IMAGE
+    extends:
+        - .agent-who
+        - .prerequisites
+    script:
+        - bazel build //...
+        - bazel test //...
+
+    artifacts:
+         name: "${CI_BUILD_NAME}"
+         expire_in: 1 hour
+         paths:
+            - bazel-*
+            - ./build_*
+            # - ./build_artifacts/*
+        # reports:
+            # junit: build_artifacts/testlogs/src/test/cpp/cfs-algo-unit-test.bin/test.xml
+
+bazel:continuous:code:quality:
+    stage: Sw Quality Assessment
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - echo "${CI_BUILD_NAME}"
+
+bazel:continuous:code:quality:online:
+    stage: Sw Quality Assessment
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - echo "${CI_BUILD_NAME}"
+
+bazel:dynamic:code:analysis:
+    stage: Sw Quality Assessment
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - echo "${CI_BUILD_NAME}"
+
+bazel:dynamic:application:security:testing:
+    stage: Sw Quality Assessment
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - echo "${CI_BUILD_NAME}"
+
+bazel:static:application:security:testing:
+    stage: Sw Quality Assessment
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - echo "${CI_BUILD_NAME}"
+
+bazel:run:time:application:security:protection:
+    stage: Sw Quality Assessment
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - echo "${CI_BUILD_NAME}"
+
+bazel:binary:code:performance:
+    stage: Sw Quality Assessment
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - echo "${CI_BUILD_NAME}"
+
+bazel:gcc:coverage:test:
+    stage: build test and feature-test
+    image: $BASE_IMAGE
+    extends:
+        - .agent-who
+        # - .prerequisites
+    script:
+        - bazel coverage -s //...
+        # - |
+            # bazel coverage -s \
+                # --instrument_test_targets \
+                # --experimental_cc_coverage \
+                # --combined_report=lcov \
+                # --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main \
+                # //...
+    artifacts:
+         name: "${CI_BUILD_NAME}"
+         expire_in: 1 hour
+         paths:
+            - bazel-*
+            - ./build_*
+            # - ./build_artifacts/*
+        # reports:
+            # junit: build_artifacts/testlogs/src/test/cpp/cfs-algo-unit-test.bin/test.xml
+
+#Courtesy to https://rpadovani.com/open-mr-gitlab-ci
+Open Merge Request:
+#    image: tmaier/gitlab-auto-merge-request
+    before_script: []      # We do not need any setup work, let's remove the global one (if any)
+    variables:
+        GIT_STRATEGY: none # We do not need a clone of the GIT repository to create a Merge Request
+    when: manual
+    stage: code review
+    only:
+        - /^feature\/*/    # We have a very strict naming convention
+    script:
+        - >
+            HOST=${CI_PROJECT_URL} CI_PROJECT_ID=${CI_PROJECT_ID} CI_COMMIT_REF_NAME=${CI_COMMIT_REF_NAME} 
+            GITLAB_USER_ID=${GITLAB_USER_ID} PRIVATE_TOKEN=${PRIVATE_TOKEN} ./autoMergeRequest.sh
+            
+        - merge-request.sh # The name of the script
+
+bazel:clang:compile:test:
+    stage: build test and feature-test
+    image: $BASE_IMAGE
+    extends:
+        - .agent-who
+        - .prerequisites
+    script:
+        - export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:/opt/clang-llvm-9.0.0/lib
+        - export PATH=/opt/clang-llvm-9.0.0/bin/:${PATH}
+        - echo "Clang and LLVM not yest supported"
+        - echo "CC=clang CXX=clang++ bazel test //..."
+
+    artifacts:
+         name: "${CI_BUILD_NAME}"
+         expire_in: 1 hour
+         paths:
+            - ./build_*
+            # - ./build_artifacts/*
+        # reports:
+            # junit: artifacts/testlogs/src/test/cpp/cfs-algo-unit-test.bin/test.xml
+
+
+deploy to production:
+    stage: cleanup and deploy
+    before_script:
+        - echo "Deploy to $ENVS ($CI_JOB_NAME in $CI_JOB_STAGE)"
+    script:
+        - echo "cicd/deploy $CI_ENVIRONMENT_NAME"
+    environment:
+        name: production
+        url:  https://dashboard.acme/status?id=production
+    when: manual
+    only:
+        # executes the build on every push to the branch: 
+        - master
+        - tags
+        - /^v\d+\.\d+\.\d+$/
+        - /^v\d+\.\d+(\.\d+)?($|-)/
+        - /^v\d+\.\d+\.\d+([abc]\d*)?$/
+        - /^v(\d+\.)?(\d+\.)?(\*|\d+)$/
+        - /^v\d+\.\d+\.\d+(?:(?:(?:\+|\.)?[a-zA-Z0-9]+)*)?$/
+        - /^v\d+\.\d+\.\d+(?:-(?:beta|rc)(?:(?:(?:\+|\.)?[a-zA-Z0-9]+)*)?)?$/
+    except:
+        - branches
+    artifacts:
+        expire_in: 1d
+        paths:
+            - "*.zip"
+            - "*.tgz"

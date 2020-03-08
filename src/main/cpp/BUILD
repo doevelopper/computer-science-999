@@ -1,7 +1,8 @@
 
 package(default_visibility = ["//visibility:public"])
 
-#load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library")
+load("@rules_pkg//:pkg.bzl", "pkg_tar", "pkg_deb")
 
 cc_library(
 
@@ -77,7 +78,6 @@ cc_library(
     #visibility = ["//main:__pkg__"],
 )
 
-
 cc_binary(
     name = "computer-science-main.bin",
     srcs = ["computer/science/main.cpp"],
@@ -88,5 +88,64 @@ cc_binary(
     deps = [
         ":computer-science-main",
     ],
+)
+
+pkg_tar(
+    name = "computer-science-libs",
+    strip_prefix = "/computer/science/cpp",
+    package_dir = "/opt/cs/lib",
+    srcs = ["//src/main/cpp:computer-science-main"],
+    mode = "0755",
+)
+
+pkg_tar(
+    name = "computer-science-hdrs-pkg",
+#    testonly = True,
+    srcs = glob([
+        "**/*.hpp",
+    ]),
+    # extension = "tar.gz",
+    package_dir = "/opt/cs/include",
+    strip_prefix = "/src/main/cpp",
+    tags = ["manual"],
+    visibility = ["//visibility:public"],
+    mode = "0644",
+)
+
+pkg_tar(
+    name = "computer-science-bin-pkg",
+#    testonly = True,
+    srcs = [
+        # ":cfs-algo-main",
+        ":computer-science-main.bin",
+    ],
+    # extension = "tar.gz",
+    package_dir = "/opt/cs/bin",
+    strip_prefix = "/src/main/cpp",
+    tags = ["manual"],
+)
+
+pkg_tar(
+    name = "computer-science",
+    extension = "tar.gz",
+    deps = [
+        ":computer-science-libs",
+        ":computer-science-hdrs-pkg",
+        ":computer-science-bin-pkg",
+    ],
+)
+
+pkg_deb(
+    name = "computer-science-deb-pkg",
+    testonly = True,
+    architecture = "amd64",
+    data = ":computer-science",
+    description = "Computer science lectures",
+    homepage = "https://gitlab.com/doevelopper/cfs-algo",
+    maintainer = "Adrien H.",
+    package = "CS101",
+    tags = ["manual"],
+    version = "0.0.1",
+    visibility = ["//visibility:public"],
 )
 

@@ -1,3 +1,5 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
+load("@rules_pkg//:pkg.bzl", "pkg_tar", "pkg_deb")
 
 cc_binary(
 
@@ -42,6 +44,25 @@ cc_binary(
 
     deps = [
         "//src/main/cpp:computer-science-main",
+    ],
+)
+
+pkg_tar(
+    name = "computer-science-integration-test.bin-pkg",
+    # testonly = True,
+    srcs = [
+        ":computer-science-integration-test.bin",
+    ],
+    package_dir = "/opt/cs/bin",
+    strip_prefix = "/src/it",
+    tags = ["manual"],
+)
+
+pkg_tar(
+    name = "computer-science-integration-test",
+    extension = "tar.gz",
+    deps = [
+        ":computer-science-integration-test.bin-pkg",
     ],
 )
 
