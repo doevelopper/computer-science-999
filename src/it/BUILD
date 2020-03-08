@@ -1,5 +1,7 @@
+
 load("@rules_cc//cc:defs.bzl", "cc_binary", "cc_library", "cc_test")
 load("@rules_pkg//:pkg.bzl", "pkg_tar", "pkg_deb")
+load("@com_github_atlassian_bazel_tools//multirun:def.bzl", "multirun", "command")
 
 cc_binary(
 
@@ -64,5 +66,46 @@ pkg_tar(
     deps = [
         ":computer-science-integration-test.bin-pkg",
     ],
+)
+
+command(
+    name = "cs-integration-test",
+    command = "//src/it:computer-science-integration-test.bin",
+    arguments = [
+        "--port",
+        "3902",
+    ],
+    environment = {
+        "ABC": "DEF",
+    },
+    raw_environment = {
+        "PATH": "$(pwd)/qa/atp",
+    },
+)
+
+command(
+    name = "cucumber-bin",
+    command = "cucumber",
+    arguments = [
+        "--out",
+        "Feature-Tests-Report.html",
+        "--strict",
+        "$(pwd)/features",
+    ],
+    environment = {
+        "ABC": "DEF",
+    },
+    raw_environment = {
+        "PATH": "$(pwd)/",
+    },
+)
+
+multirun(
+    name = "integration-test",
+    commands = [
+        ":cs-integration-test",
+        ":cucumber-bin",
+    ],
+    #parallel = True,
 )
 
