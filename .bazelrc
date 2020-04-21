@@ -1,0 +1,39 @@
+build --show_timestamps --color=yes
+build --verbose_failures
+build --color=yes
+# Pass PATH, CC and CXX variables from the environment.
+build --action_env=CC
+build --action_env=CXX
+build --action_env=PATH
+build --cxxopt=-std=c++17 --host_cxxopt=-std=c++17 --client_env=BAZEL_CXXOPTS=-std=c++17
+build --cxxopt="-fdiagnostics-color=always"
+
+test --test_output=errors
+test --test_output=all
+
+
+# show all coverage outputs
+coverage --test_output=all --verbose_failures
+coverage --instrumentation_filter=
+# Coverage tests
+test:coverage --test_tag_filters=-cpplint
+test:coverage --copt=--coverage
+test:coverage --cxxopt=--coverage
+test:coverage --cxxopt=-fprofile-arcs
+test:coverage --cxxopt=-ftest-coverage
+test:coverage --linkopt=-coverage
+test:coverage --linkopt=-lgcov
+test:coverage --linkopt=-lgcc
+test:coverage --linkopt=-lc
+
+# Coverage
+#coverage --combined_report=lcov
+#coverage --coverage_report_generator=@bazel_tools//tools/test/CoverageOutputGenerator/java/com/google/devtools/coverageoutputgenerator:Main
+#coverage --experimental_cc_coverage
+
+
+run --python_path=/usr/bin/python3
+
+build --host_force_python=PY3
+test --host_force_python=PY3
+
