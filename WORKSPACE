@@ -28,3 +28,12 @@ load("@com_github_atlassian_bazel_tools//multirun:deps.bzl", "multirun_dependenc
 
 multirun_dependencies()
 
+http_archive(
+    name = "io_rules_sdlc",
+	strip_prefix = "rules_sdlc-master",
+    urls = [
+        "https://github.com/doevelopper/rules-sdlc/archive/master.zip",
+        "https://github.com/doevelopper/rules-sdlc/archive/feature/common-cfs-bazel-scripts.zip",
+    ],
+    sha256 = "TODO",
+)
